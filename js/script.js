@@ -2,7 +2,6 @@
 const canvas = document.getElementById('canvas');
 /* get a "context". Without "context", we can't draw on canvas */
 const ctx = canvas.getContext('2d');
-
 // some sounds
 const hitSound = new Audio('../sounds/hitSound.wav');
 const scoreSound = new Audio('../sounds/scoreSound.wav');
@@ -27,7 +26,7 @@ const net = {
   y: 0,
   width: netWidth,
   height: netHeight,
-  color: "#FFF"
+  color: "#34a853"
 };
 
 // user paddle
@@ -36,7 +35,7 @@ const user = {
   y: canvas.height / 2 - paddleHeight / 2,
   width: paddleWidth,
   height: paddleHeight,
-  color: '#FFF',
+  color: '#fbbc05',
   score: 0
 };
 
@@ -45,7 +44,7 @@ const ai = {
   y: canvas.height / 2 - paddleHeight / 2,
   width: paddleWidth,
   height: paddleHeight,
-  color: '#FFF',
+  color: 'blue',
   score: 0
 };
 
@@ -57,7 +56,7 @@ const ball = {
   speed: 7,
   velocityX: 5,
   velocityY: 5,
-  color: '#05EDFF'
+  color: '#ea4335'
 };
 
 /* objects declaration ends */
@@ -74,7 +73,7 @@ function drawNet() {
 
 // function to draw score
 function drawScore(x, y, score) {
-  ctx.fillStyle = '#fff';
+  ctx.fillStyle = 'black';
   ctx.font = '35px sans-serif';
 
   // syntax --> fillText(text, x, y)
@@ -173,6 +172,15 @@ function update() {
     user.y += 8;
   }
 
+
+  if(user.score == 10){
+    ball.color = user.color;
+  }
+
+  if(ai.score == 10){
+    ball.color = ai.color;
+  }
+
   if(user.score == 20){
     alert("Game Over User wins");
     user.score = 0;
@@ -197,6 +205,7 @@ function update() {
     scoreSound.play();
     // then user scored 1 point
     user.score += 1;
+    alert("User Scored a Point !!")
     reset();
   }
 
@@ -206,6 +215,7 @@ function update() {
     scoreSound.play();
     // then ai scored 1 point
     ai.score += 1;
+    alert("AI Scored a Point !!")
     reset();
   }
 
@@ -247,7 +257,7 @@ function update() {
 // render function draws everything on to canvas
 function render() {
   // set a style
-  ctx.fillStyle = "#000"; /* whatever comes below this acquires black color (#000). */
+  ctx.fillStyle = "white"; /* whatever comes below this acquires black color (#000). */
   // draws the black board
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
